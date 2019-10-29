@@ -39,9 +39,9 @@
 	contents))))
 
 (defvar *config*
-  (if (fad:file-exists-p "/etc/cfarm-test-libffi.ini")
+  (if (fad:file-exists-p "/etc/cfarm-test-libffi/config.ini")
       (cl-toml:parse
-       (read-file-into-string "/etc/cfarm-test-libffi.ini"))
+       (read-file-into-string "/etc/cfarm-test-libffi/config.ini"))
       (make-hash-table)))
 
 ;; Start the web app.
