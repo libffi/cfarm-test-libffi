@@ -66,7 +66,7 @@
 (defvar *host-map* (make-hash-table :test 'equal))
 
 (defvar *cfarm-hosts*
-  '(("powerpc64-linux-gnu" ("gcc112.fsffrance.org" . 22))))
+  '(("powerpc64le-unknown-linux-gnu" ("gcc112.fsffrance.org" . 22))))
   
 (mapc (lambda (host)
 	(setf (gethash (car host) *host-map*) (cdr host)))
@@ -89,12 +89,23 @@
 			       (merge-pathnames +root-path+ "cfarm-test-libffi.sh")
 			       #p"cfarm-test-libffi.sh")
 	      (setf (content-type*) "text/plain")
-	      (let ((stream (hunchentoot:send-headers))
-		    (buffer (make-array 128 :element-type 'flex:octet)))
-		(ssh:with-command (conn iostream (format nil "source ./cfarm-test-libffi.sh ~A" commit))
-				  (loop for pos = (read-sequence buffer iostream)
-					until (zerop pos) 
-					do (write-sequence buffer stream :end pos)))))
+	      (let* ((stream (hunchentoot:send-headers))
+		     (buffer (make-array 128 :element-type 'flex:octet))
+		     (rstring
+		       (with-output-to-string (rstring-stream)
+			 (ssh:with-command (conn iostream (format nil "source ./cfarm-test-libffi.sh ~A" commit))
+					   (loop for pos = (read-sequence buffer iostream)
+						 until (zerop pos) 
+						 do (progn
+						      (format rstring-stream buffer)
+						      (write-sequence buffer stream :end pos)))
+					   (format stream "Log file: https://~A/~A" "cfarm-test-libffi-libffi.apps.home.labdroid.net/" logfile)))))
+		(with-input-from-string (in rstring-stream)
+		  (loop for line = (read-line in nil)
+			while line do
+			  (if (starts-with "==LOGFILE== " line)
+			      (ssh:download-file conn
+						 (str:substring 12 nil line) #"/tmp/DOWNLOAD"))))))
 	    (format nil "Missing commit hash"))
 	(format nil "Unsupported host-triple ~A" host-triple))))
 
