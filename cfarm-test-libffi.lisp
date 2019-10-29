@@ -82,7 +82,7 @@
 	    (ssh:with-connection (conn (car (car host))
 				       (ssh:key (get-config-value "ssh-username")
 						(truename (get-config-value "ssh-private-key")))
-				       :hosts-db-path "/tmp/known_hosts")
+				       "/tmp/known_hosts")
 	      (ssh:upload-file conn
 			       (merge-pathnames +root-path+ "cfarm-test-libffi.sh")
 			       #p"cfarm-test-libffi.sh")
