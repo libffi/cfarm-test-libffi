@@ -103,7 +103,7 @@
 		(with-input-from-string (in rstring-stream)
 		  (loop for line = (read-line in nil)
 			while line do
-			  (if (starts-with "==LOGFILE== " line)
+			  (if (str:starts-with? "==LOGFILE== " line)
 			      (ssh:download-file conn
 						 (str:substring 12 nil line) #p"/tmp/DOWNLOAD"))))))
 	    (format nil "Missing commit hash"))
