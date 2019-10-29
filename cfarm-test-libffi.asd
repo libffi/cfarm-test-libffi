@@ -23,5 +23,5 @@
   :serial t
   :components ((:file "package")
 	       (:file "cfarm-test-libffi"))
-  :depends-on (:hunchentoot :trivial-ssh :cl-toml :cl-fad :cl-str))
+  :depends-on (:hunchentoot :trivial-ssh :cl-toml :cl-fad :str))
 
