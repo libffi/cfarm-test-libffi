@@ -1,10 +1,11 @@
 sudo: required
 
+language: c
+
 services:
   - docker
 
 env:
-  LISP=sbcl
   REPO=moxielogic/cfarm-test-libffi
 
 before_install:
