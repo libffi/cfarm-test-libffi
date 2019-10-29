@@ -11,6 +11,9 @@ env:
 before_install:
   - docker build -f Dockerfile --build-arg CFARM_TEST_LIBFFI_VERSION="$(git describe --tags --dirty=+)" -t $REPO:latest .
 
+script:
+  -
+
 after_success:
   - if [ "$TRAVIS_BRANCH" == "master" ]; then
       docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
