@@ -49,6 +49,8 @@
 (defun start-webapp (&rest interactive)
   "Start the web application and have the main thread sleep forever,
   unless INTERACTIVE is non-nil."
+  ;;; Create an empty file.
+  (with-open-file (stream "/tmp/known_hosts" :direction :output))
   (format t "** Starting hunchentoot on port 8080~%")
   (setq *hunchentoot-server* (hunchentoot:start 
 			      (make-instance 'hunchentoot:easy-acceptor 
