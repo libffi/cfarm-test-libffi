@@ -1,0 +1,6 @@
+#!/bin/bash
+
+mkdir -p ./quicklisp/local-projects
+cp -a /tmp/src/*/3rd-party/* ./quicklisp/local-projects
+
+/usr/libexec/s2i/assemble
