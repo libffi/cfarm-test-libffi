@@ -97,7 +97,7 @@
 					   (loop for pos = (read-sequence buffer iostream)
 						 until (zerop pos) 
 						 do (progn
-						      (format rstring-stream buffer)
+						      (write-sequence buffer rstring-stream :pos)
 						      (write-sequence buffer stream :end pos)))
 					   (format stream "Log file: https://~A/~A" "cfarm-test-libffi-libffi.apps.home.labdroid.net/" logfile)))))
 		(with-input-from-string (in rstring-stream)
