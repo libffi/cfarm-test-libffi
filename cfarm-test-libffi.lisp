@@ -97,10 +97,10 @@
 					   (loop for pos = (read-sequence buffer iostream)
 						 until (zerop pos) 
 						 do (progn
-						      (write-sequence buffer rstring-stream :end pos)
+						      (format rstring-stream (flexi-streams:octets-to-string buffer :external-format :utf-8 :end pos))
 						      (write-sequence buffer stream :end pos)))
 					   (format stream "Log file: https://~A/~A" "cfarm-test-libffi-libffi.apps.home.labdroid.net/" logfile)))))
-		(with-input-from-string (in rstring-stream)
+		(with-input-from-string (in rstring)
 		  (loop for line = (read-line in nil)
 			while line do
 			  (if (str:starts-with? "==LOGFILE== " line)
