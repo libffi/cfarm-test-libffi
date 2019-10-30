@@ -100,7 +100,7 @@
 						      (format rstring-stream
 							      "~A" (flexi-streams:octets-to-string buffer :external-format :utf-8 :end pos))
 						      (write-sequence buffer stream :end pos)))
-					   (format stream "Log file: https://~A/libffi.log" "cfarm-test-libffi-libffi.apps.home.labdroid.net")))))
+					   (format nil "Log file: https://~A/libffi.log" "cfarm-test-libffi-libffi.apps.home.labdroid.net")))))
 		(with-input-from-string (in rstring)
 		  (loop for line = (read-line in nil)
 			while line do
