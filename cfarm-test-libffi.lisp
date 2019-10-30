@@ -97,7 +97,8 @@
 					   (loop for pos = (read-sequence buffer iostream)
 						 until (zerop pos) 
 						 do (progn
-						      (format rstring-stream (flexi-streams:octets-to-string buffer :external-format :utf-8 :end pos))
+						      (format rstring-stream
+							      "~A" (flexi-streams:octets-to-string buffer :external-format :utf-8 :end pos))
 						      (write-sequence buffer stream :end pos)))
 					   (format stream "Log file: https://~A/~A" "cfarm-test-libffi-libffi.apps.home.labdroid.net/" logfile)))))
 		(with-input-from-string (in rstring)
