@@ -106,7 +106,7 @@
 			while line do
 			  (if (str:starts-with? "==LOGFILE== " line)
 			      (ssh:download-file conn
-						 (str:substring 12 nil line) #p"/tmp/DOWNLOAD"))))))
+						 #p"/tmp/DOWNLOAD" (str:substring 12 nil line)))))))
 	    (format nil "Missing commit hash"))
 	(format nil "Unsupported host-triple ~A" host-triple))))
 
