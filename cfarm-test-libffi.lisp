@@ -77,7 +77,8 @@
       (error "config does not contain key '~A'" key)))
 
 (defun show-logs (host-triple logfile)
-  (when (str:ends-with? ".log.tgz")
+  (when (and (str:ends-with? ".log.tgz")
+	     (host (gethash host-triple *host-map*)))
     (ssh:with-connection (conn (car (car host))
 			       (ssh:key (get-config-value "ssh-username")
 					(truename (get-config-value "ssh-private-key")))
