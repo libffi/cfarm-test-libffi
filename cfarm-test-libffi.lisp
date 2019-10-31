@@ -114,7 +114,10 @@
 (EVAL-WHEN (:COMPILE-TOPLEVEL :LOAD-TOPLEVEL :EXECUTE)
   
   (hunchentoot:define-easy-handler (test :uri "/test") (host commit)
-    (run-cfarm-tests host commit))
+    (multiple-value-bind (username password)
+	(authorization)
+      (when (equal password "sample-password")
+	(run-cfarm-tests host commit))))
   
   (hunchentoot:define-easy-handler (status :uri "/health") ()
     (setf (hunchentoot:content-type*) "text/plain")
