@@ -123,10 +123,7 @@
 	(run-cfarm-tests host commit))))
   
   (hunchentoot:define-easy-handler (logs :uri "/logs") (host logfile)
-    (multiple-value-bind (username password)
-	(authorization)
-      (when (equal password (get-config-value "auth-password"))
-	(show-logs host logfile))))
+    (show-logs host logfile))
   
   (hunchentoot:define-easy-handler (status :uri "/health") ()
     (setf (hunchentoot:content-type*) "text/plain")
