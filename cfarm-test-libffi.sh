@@ -13,8 +13,8 @@ git checkout $1
 make
 make check
 EXIT_CODE=$?
-gzip -c -9 */testsuite/libffi.log > libffi.log.gz
-echo ==LOGFILE== `pwd`/libffi.log.gz
+gzip -c -9 */testsuite/libffi.log > $DIR.log.gz
+echo ==LOGFILE== $DIR.log.gz
 cd ..
 rm -rf $DIR
 

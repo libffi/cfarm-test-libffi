@@ -88,9 +88,6 @@
 	      (ssh:upload-file conn
 			       (merge-pathnames +root-path+ "cfarm-test-libffi.sh")
 			       #p"cfarm-test-libffi.sh")
-	      ;;; Just test
-;	      (ssh:download-file conn
-;				 #p"/tmp/DOWNLOAD" #p"cfarm-test-libffi.sh")
 	      (setf (content-type*) "text/plain")
 	      (let* ((stream (hunchentoot:send-headers))
 		     (buffer (make-array 128 :element-type 'flex:octet))
@@ -107,9 +104,10 @@
 		(with-input-from-string (in rstring)
 		  (loop for line = (read-line in nil)
 			while line do
-			  (if (str:starts-with? "==LOGFILE== " line)
-			      (ssh:download-file conn
-						 #p"/tmp/DOWNLOAD" (str:substring 12 nil line)))))))
+			  (when (str:starts-with? "==LOGFILE== " line)
+			    (let ((remote-filename (str:substring 12 nil line)))
+			      (ssh:download-file conn #p"/tmp/DOWNLOAD" remote-filename)
+			      (ssh:with-command (conn iostream (format nil "rm ~A" remote-filename)))))))))
 	    (format nil "Missing commit hash"))
 	(format nil "Unsupported host-triple ~A" host-triple))))
 
