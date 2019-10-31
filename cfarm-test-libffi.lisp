@@ -66,7 +66,8 @@
 (defvar *host-map* (make-hash-table :test 'equal))
 
 (defvar *cfarm-hosts*
-  '(("powerpc64le-unknown-linux-gnu" ("gcc112.fsffrance.org" . 22))))
+  '(("powerpc64le-unknown-linux-gnu" ("gcc112.fsffrance.org" . 22))
+    ("sparc64-linux-gnu" ("gcc202.fsffrance.org" . 22))))
   
 (mapc (lambda (host)
 	(setf (gethash (car host) *host-map*) (cdr host)))
