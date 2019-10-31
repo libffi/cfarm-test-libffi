@@ -124,7 +124,7 @@
     (multiple-value-bind (username password)
 	(authorization)
       (when (equal password (get-config-value "auth-password"))
-	(show-logs logfile))))
+	(show-logs host logfile))))
   
   (hunchentoot:define-easy-handler (status :uri "/health") ()
     (setf (hunchentoot:content-type*) "text/plain")
