@@ -67,6 +67,7 @@
 
 (defvar *cfarm-hosts*
   '(("powerpc64le-unknown-linux-gnu" ("gcc112.fsffrance.org" . 22))
+    ("mips64el-linux-gnu" ("gcc22.fsffrance.org" . 22))
     ("sparc64-linux-gnu" ("gcc202.fsffrance.org" . 22))))
   
 (mapc (lambda (host)
