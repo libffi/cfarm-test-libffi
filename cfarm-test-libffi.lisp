@@ -89,8 +89,8 @@
 			       (merge-pathnames +root-path+ "cfarm-test-libffi.sh")
 			       #p"cfarm-test-libffi.sh")
 	      ;;; Just test
-	      (ssh:download-file conn
-				 #p"/tmp/DOWNLOAD" #p"cfarm-test-libffi.sh")
+;	      (ssh:download-file conn
+;				 #p"/tmp/DOWNLOAD" #p"cfarm-test-libffi.sh")
 	      (setf (content-type*) "text/plain")
 	      (let* ((stream (hunchentoot:send-headers))
 		     (buffer (make-array 128 :element-type 'flex:octet))
