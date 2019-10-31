@@ -106,8 +106,8 @@
 			while line do
 			  (when (str:starts-with? "==LOGFILE== " line)
 			    (let ((remote-filename (str:substring 12 nil line)))
-			      (ssh:download-file conn #p"/tmp/DOWNLOAD" remote-filename)
-			      (ssh:with-command (conn iostream (format nil "rm ~A" remote-filename)))))))))
+			      (ssh:download-file conn #p"/tmp/DOWNLOAD" remote-filename)))))))
+;			      (ssh:with-command (conn iostream (format nil "rm ~A" remote-filename)))))))))
 	    (format nil "Missing commit hash"))
 	(format nil "Unsupported host-triple ~A" host-triple))))
 
