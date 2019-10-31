@@ -107,7 +107,7 @@
 	      (setf (content-type*) "text/plain")
 	      (let* ((stream (hunchentoot:send-headers))
 		     (buffer (make-array 1024 :element-type 'flex:octet)))
-		(ssh:with-command (conn iostream (format nil "source ./cfarm-test-libffi.sh ~A" commit))
+		(ssh:with-command (conn iostream (format nil "source ./cfarm-test-libffi.sh ~A ~A" host-triple commit))
 		  (loop for pos = (read-sequence buffer iostream)
 			until (zerop pos) 
 			do (write-sequence buffer stream :end pos)))))
