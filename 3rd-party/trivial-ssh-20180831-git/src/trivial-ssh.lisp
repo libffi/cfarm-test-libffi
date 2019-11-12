@@ -73,7 +73,7 @@
   and defaults to `~/.ssh/known_hosts`."
   `(let* ((ssh-conn
             (libssh2:create-ssh-connection
-             ,host :hosts-db (namestring ,hosts-db-path) :port ,port)))
+             ,host :hosts-db (namestring ,hosts-db-path) :port ,port :read-timeout 20 :write-timeout 20)))
      (handler-case
          (libssh2:ssh-verify-session ssh-conn)
        (libssh2:ssh-bad-hostkey nil (accept-key ssh-conn)))
