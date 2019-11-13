@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Delete logs older than 1 day
+find ~ -name libffi.\*.log.gz -type f -mtime +1 -delete
+
 DIR=$(mktemp -d $HOME/libffi.XXXXXX)
 LNAME=$(basename ${DIR})
 
